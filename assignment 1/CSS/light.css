@@ -1,0 +1,199 @@
+/* Set box-sizing to border-box for all elements */
+* {
+  box-sizing: border-box;
+  margin: 10px;
+  padding: 10px;
+  font-family: "Times New Roman", Times, sans-serif, serif;
+  margin: 0; /* Add margin to the body */
+}
+
+/* Body styles */
+body {
+  background-color: #f5f5f5; /* Light gray background */
+  color: #333; /* Dark gray font color */
+}
+
+#skip a {
+  display: block;
+  position: absolute;
+  left: -999px;
+  top: -999px;
+}
+
+#skip a:focus {
+  left: 0;
+  top: 0;
+  padding: 3px;
+  background: #ffd; /* Light yellow background */
+  border: 1px solid #990000;
+}
+
+.nav li button {
+  padding: 10px 20px;
+  background-color: #ddd; /* Light gray background */
+  color: #333; /* Dark gray text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 120px; /* Set a fixed width for all buttons */
+}
+
+/* Style for the header */
+.header {
+  font-size: 30px;
+  padding: 60px 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #333; /* Dark gray font color */
+  background-color: #f5f5f5; /* Light gray background */
+}
+
+h1 {
+  margin: 0;
+}
+
+/* Add more margin and padding to input elements */
+input {
+  margin: 30px;
+  padding: 15px;
+  height: 23px;
+  background-color: #ddd; /* Light gray background */
+  border: 1px solid gray;
+  font-size: 14px;
+  color: #333; /* Dark gray font color */
+}
+
+/* Style for select element */
+select {
+  margin: 30px;
+  padding: 15px;
+  background-color: #ddd; /* Light gray background */
+  border: 1px solid gray;
+  font-size: 14px;
+  color: #333; /* Dark gray font color */
+}
+
+#fieldBoxes {
+  display: inline-flex;
+  margin-left: -20px; /* Add missing 'px' unit */
+  background-color: transparent;
+}
+
+.input-field {
+  display: block;
+}
+
+/* Increase margin and padding for the textarea */
+textarea {
+  margin: 30px;
+  padding: 15px;
+  height: 100px;
+  background-color: #ddd; /* Light gray background */
+  border: 1px solid gray;
+  font-size: 14px;
+  color: #333; /* Dark gray font color */
+}
+
+input[type="button"] {
+  margin: 30px auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  background-color: #1f449c; /* Keep the background color */
+  width: 50%;
+  color: #fff; /* White font color */
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Fix: Replace 'onhover' with 'hover' */
+:hover {
+  color: #ccc; /* Light gray font color */
+}
+
+.ThemeSwitch {
+  height: 50px;
+  width: 50px;
+}
+
+
+/* Dropdown code goes here ------------------------------------------------------------------------------------------------*/
+
+/* Style for the navigation bar */
+.navbar {
+  background-color: #f5f5f5; /* Light gray background */
+  overflow: hidden;
+}
+
+.nav-item {
+  float: left;
+  width: 25%; /* Adjust width as needed */
+}
+
+.nav-btn {
+  display: block;
+  color: #333; /* Dark gray font color */
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  background-color: #f5f5f5; /* Light gray background */
+  width: 100%;
+  border: none;
+  cursor: pointer;
+}
+
+.content {
+  display: none;
+  padding: 15px;
+  background-color: #f5f5f5; /* Light gray background */
+}
+
+/* Style for hover on buttons */
+.nav-btn:hover {
+  background-color: #eee; /* Slightly lighter gray on hover */
+}
+
+.dropdown-item {
+  display: block;
+  color: #333; /* Dark gray font color */
+  padding: 14px 16px;
+  text-decoration: none;
+  background-color: #f5f5f5; /* Light gray background */
+  width: 100%;
+  border: none;
+  cursor: pointer;
+}
+
+/* Reset padding and margins specifically for dropdown items to prevent global style interference */
+.dropdown-item, .content {
+  margin: 0;
+  padding: 10px; /* Consistent padding */
+  background-color: #eee; /* Slightly lighter gray to distinguish from the navbar */
+  color: #333; /* Dark gray font color */
+}
+
+/* Ensure consistent styling for buttons within dropdown items if they exist */
+.dropdown-item button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ddd; /* Light gray background for buttons */
+  color: #333; /* Dark gray font color */
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+/* Add a hover effect for dropdown items for better user interaction feedback */
+.dropdown-item:hover, .dropdown-item button:hover {
+  background-color: #ccc; /* Lighten on hover for visibility */
+}
+
+/* General improvement for readability and interaction */
+.nav-btn, .dropdown-item {
+  display: block;
+  text-decoration: none; /* Remove underline from any links */
+  width: 100%; /* Full width for better click area */
+}

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Pizza</title>
+<link id="theme-style" rel="stylesheet" type="text/css" href="CSS/dark.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="Scripts/script.js"></script>
+<style>
+    /* Style for the main container */
+    .container {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+        padding: 20px;
+    }
+    
+    /* Style for the sections */
+    .section {
+        margin-bottom: 20px;
+    }
+    
+    /* Style for the images */
+    .item {
+        cursor: pointer;
+        margin-right: 10px;
+        width: 200px; /* Set a fixed width */
+        height: auto; /* Maintain aspect ratio */
+    }
+    /* Style for the remove buttons */
+button {
+    padding: 5px 10px; /* Slimmer padding */
+    font-size: 12px; /* Smaller font size */
+    color: white; /* White text color */
+    background-color: #ff4444; /* Red background for attention */
+    border: none; /* No border for a cleaner look */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Cursor indicates clickable */
+    outline: none; /* Remove outline on focus for aesthetics */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+button:hover {
+    background-color: #ff0000; /* Slightly darker on hover for feedback */
+}
+
+</style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-item">
+            <button class="nav-btn">Navigate</button>
+            <ul class="content">
+                <li class="dropdown-item">You are on our homepage</li>
+                <li class="dropdown-item"><button onclick="window.location.href='index.html'">Home</button></li>
+                <li class="dropdown-item"><button onclick="window.location.href='form.html'">Form</button></li>
+                <li class="dropdown-item"><button onclick="window.location.href='pizzaMaker.html'">Make your own</button></li>
+                <li class="dropdown-item"><button onclick="window.location.href='placeOrder.html'">Order</button></li>
+            </ul>
+        </div>
+        <div class="nav-item">
+            <button class="nav-btn">Settings</button>
+            <ul class="content">
+                <li class="dropdown-item">Adjust your settings here.</li>
+                <select class="theme-select" onchange="changeTheme()">
+                    <option value="default">Theme Select</option>
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="protanopia">Protanopia</option>
+                    <option value="deuteranopia">Deuteranopia</option>
+                    <option value="tritanopia">Tritanopia</option>
+                </select>
+                <!-- Add new settings options here -->
+            </ul>
+        </div>
+        <div class="nav-item">
+            <button class="nav-btn">Login</button>
+            <ul class="content">
+                <li class="dropdown-item">Login to access your account.</li>
+                <form>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    <br>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <br>
+                    <input type="submit" value="Submit">
+                </form>
+                <!-- Additional login options can be added here -->
+            </ul>
+        </div>
+        <div class="nav-item">
+            <button class="nav-btn">Cart</button>
+            <ul class="content">
+                <li class="dropdown-item">View items in your cart.</li>
+                <!-- Additional cart actions can be added here -->
+                <div id="orderDetailsBox">
+                    <ul>
+                        <li>Order details will be displayed here.</li>
+                    </ul>
+                </div>
+            </ul>
+        </div>
+    </nav>
+<div class="container">
+    <!-- Pizza Section -->
+    <div class="section">
+        <h2>Pizzas</h2>
+        <img src="img/margarita.png" alt="Margarita Pizza" class="item main" data-name="Margarita Pizza" data-price="10">
+        <img src="img/peperoniPizza.png" alt="Peperoni Pizza" class="item main" data-name="Peperoni Pizza" data-price="12">
+        <img src="img/vegPizza.png" alt="Veg Pizza" class="item main" data-name="Veg Pizza" data-price="15">
+    </div>
+
+    <!-- Sides Section -->
+    <div class="section">
+        <h2>Sides</h2>
+        <img src="img/garlicBread.png" alt="Bread" class="item sides" data-name="Bread" data-price="5">
+        <img src="img/cookie.png" alt="Cookies" class="item sides" data-name="Cookies" data-price="6">
+        <img src="img/doughballs.png" alt="Doughballs" class="item sides" data-name="Doughballs" data-price="7">
+    </div>
+
+    <!-- Drinks Section -->
+    <div class="section">
+        <h2>Drinks</h2>
+        <img src="img/coke.png" alt="Coke" class="item drinks" data-name="Coke" data-price="2">
+        <img src="img/pepsi.png" alt="Pepsi" class="item drinks" data-name="Pepsi" data-price="2">
+        <img src="img/sprite.png" alt="Sprite" class="item drinks" data-name="Sprite" data-price="2">
+    </div>
+</div>
+
+<!-- Text area to display the order -->
+<!-- Text area to display the order -->
+<div>
+    <h2>Your Order:</h2>
+    <ul id="orderList"></ul> <!-- Changed from textarea to list for easier item management -->
+</div>
+
+<!-- Text box to display the total price -->
+<div>
+    <h2>Total Price:</h2>
+    <input type="text" id="totalPrice" readonly>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Load order from localStorage and update display
+        loadOrderFromLocalStorage();
+        updateOrderDisplay();
+
+        // Attach event listeners to each item
+        document.querySelectorAll('.item').forEach(item => {
+            item.addEventListener('click', addToOrder);
+        });
+    });
+
+    let orderedItems = [];
+
+    function loadOrderFromLocalStorage() {
+        const savedItems = localStorage.getItem('orderedItems');
+        if (savedItems) {
+            orderedItems = JSON.parse(savedItems);
+            console.log('Order loaded from localStorage:', orderedItems);
+        }
+    }
+
+    function addToOrder(event) {
+        const itemName = event.target.dataset.name;
+        const itemPrice = parseFloat(event.target.dataset.price);
+
+        orderedItems.push({ name: itemName, price: itemPrice });
+        updateOrderList();
+        updateTotalPrice();
+        saveOrderToLocalStorage();  // Save each time an item is added
+    }
+
+    function updateOrderList() {
+        const orderList = document.getElementById('orderList');
+        orderList.innerHTML = ''; // Clear existing items
+
+        orderedItems.forEach((item, index) => {
+            const itemElement = document.createElement('li');
+            itemElement.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+
+            const removeBtn = document.createElement('button');
+            removeBtn.textContent = 'Remove';
+            removeBtn.onclick = function() { removeItem(index); };
+            removeBtn.style.marginLeft = '10px';
+
+            itemElement.appendChild(removeBtn);
+            orderList.appendChild(itemElement);
+        });
+    }
+
+    function updateOrderDisplay() {
+        const orderList = document.getElementById('orderList');
+        orderList.innerHTML = ''; // Clear existing display
+
+        orderedItems.forEach((item, index) => {
+            const itemElement = document.createElement('li');
+            itemElement.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+            orderList.appendChild(itemElement);
+        });
+    }
+
+    function removeItem(index) {
+        orderedItems.splice(index, 1); 
+        updateOrderList(); 
+        updateTotalPrice();
+        saveOrderToLocalStorage();  // Save each time an item is removed
+    }
+
+    function updateTotalPrice() {
+        const totalPrice = orderedItems.reduce((total, item) => total + item.price, 0);
+        document.getElementById('totalPrice').value = `$${totalPrice.toFixed(2)}`;
+    }
+
+    function saveOrderToLocalStorage() {
+        localStorage.setItem('orderedItems', JSON.stringify(orderedItems));
+        console.log('Order saved to localStorage:', orderedItems);
+    }
+</script>
+
+
+</body>
+</html>

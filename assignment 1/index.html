@@ -1,0 +1,129 @@
+<html lang="en">
+    <head>
+        <title> accessible programming </title>
+        <link id="theme-style" rel="stylesheet" type="text/css" href="CSS/dark.css">
+        <script src="Scripts/script.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            th, td {
+                border: 1px solid black;
+                padding: 10px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <body>
+            <nav class="navbar">
+                <div class="nav-item">
+                    <button class="nav-btn">Navigate</button>
+                    <ul class="content">
+                        <li class="dropdown-item">You are on our homepage</li>
+                        <li class="dropdown-item"><button onclick="window.location.href='index.html'">Home</button></li>
+                        <li class="dropdown-item"><button onclick="window.location.href='form.html'">Form</button></li>
+                        <li class="dropdown-item"><button onclick="window.location.href='pizzaMaker.html'">Make your own</button></li>
+                        <li class="dropdown-item"><button onclick="window.location.href='placeOrder.html'">Order</button></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <button class="nav-btn">Settings</button>
+                    <ul class="content">
+                        <li class="dropdown-item">Adjust your settings here.</li>
+                        <select class="theme-select" onchange="changeTheme()">
+                            <option value="default">Theme Select</option>
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                            <option value="protanopia">Protanopia</option>
+                            <option value="deuteranopia">Deuteranopia</option>
+                            <option value="tritanopia">Tritanopia</option>
+                        </select>
+                        <!-- Add new settings options here -->
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <button class="nav-btn">Login</button>
+                    <ul class="content">
+                        <li class="dropdown-item">Login to access your account.</li>
+                        <form>
+                            <label for="username">Username:</label>
+                            <input type="text" id="username" name="username" required>
+                            <br>
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password" required>
+                            <br>
+                            <input type="submit" value="Submit">
+                        </form>
+                        <!-- Additional login options can be added here -->
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <button class="nav-btn">Cart</button>
+                    <ul class="content">
+                        <li class="dropdown-item">View items in your cart.</li>
+                        <div id="orderDetailsBox">
+                            <ul>
+                                <li>Order details will be displayed here.</li>
+                            </ul>
+                        </div>
+                        <!-- Additional cart actions can be added here -->
+                    </ul>
+                </div>
+            </nav>
+</body>
+
+        
+
+        
+        <div class="header"> 
+            <!-- Header section -->
+            <h1>Jeppie's Pizza</h1>
+            
+        
+
+            
+        </div>
+        <div class="HomeContent">
+        <h2>Filler</h2>
+
+        <table>
+            <tr>
+                <th>Title 1</th>
+                <th>Title 2</th>
+                <th>Title 3</th>
+            </tr>
+            <tr>
+                <td>
+                    Step into the kitchen at Jeppie's Pizza, and you'll witness a symphony of culinary expertise as our team 
+                    brings the art of pizza making to life. It all starts with our signature dough, a labor of love that's 
+                    been fermented to perfection for that classic Neapolitan flavor and airy texture. Our chefs skillfully 
+                    hand-toss each dough round, creating a uniform base that serves as the canvas for culinary creativity. 
+                    From there, they lavish on our house-made sauce, a harmonious blend of sun-ripened tomatoes, 
+                    garlic, and secret spices that adds a burst of freshness to every bite.
+                </td>
+                <td>
+                    Toppings are applied with precision, ensuring a balanced combination of flavors and textures in every slice. 
+                    Whether you prefer traditional classics or innovative creations, Jeppie's Pizza promises a culinary experience 
+                    that's second to none. Join us behind the scenes at Jeppie's Pizza, where the magic of pizza making unfolds with 
+                    every order. Our journey begins with the careful selection of premium ingredients sourced from trusted local 
+                    suppliers. Freshly made dough is stretched by hand and expertly topped with our signature sauce, a 
+                    tantalizing blend of San Marzano tomatoes and aromatic herbs. From there, the possibilities are 
+                    endless as we pile on an array of toppings, from classic pepperoni and mushrooms to gourmet specialties like 
+                    prosciutto and truffle oil. Each pizza is then baked in our state-of-the-art oven, where blistering heat transforms the 
+                    raw ingredients into a mouthwatering masterpiece.
+                </td>
+                <td>
+                    Whether you dine in at our cozy restaurant or enjoy our pizzas from the comfort of your home, Jeppie's 
+                    Pizza delivers an unforgettable culinary experience that celebrates the timeless tradition of pizza 
+                    making. At Jeppie's Pizza, crafting the perfect pizza begins with the freshest ingredients and a passion 
+                    for culinary excellence.
+                </td>
+            </tr>
+            
+        </table>
+        
+    </body>
+</html>

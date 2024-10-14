@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pizza Designer</title>
+<link id="theme-style" rel="stylesheet" type="text/css" href="CSS/dark.css">
+<script src="Scripts/script.js"></script>
+<style>
+    #toppingList {
+        margin-bottom: 50px;
+        padding: 10px;
+        width: 100%;
+        table-layout: fixed;
+        border: solid 5px #000;
+        /* Remove overflow-x to prevent page extension */
+    }
+    /* Define styles for the pizza base and toppings */
+    .pizza-base {
+        width: 400px;
+        height: 400px;
+        background-image: url('img/pizzaBase.png'); /* Replace 'pizza_base.jpg' with the path to your pizza base image */
+        background-size: cover;
+        background-color: transparent;
+        padding: 25px;
+        position: relative;
+    }
+    .topping-area {
+        border: 1px dotted black;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%; /* Make the topping area circular */
+        position: absolute;
+    }
+    td {
+        text-align: center; /* Center align content within table cells */
+    }
+
+    .topping{
+        z-index: 1000;
+    }
+</style>
+</head>
+<body>
+<div>
+    <nav class="navbar">
+        <div class="nav-item">
+            <button class="nav-btn">Navigate</button>
+            <ul class="content">
+                <li class="dropdown-item">You are on our homepage</li>
+                <li class="dropdown-item"><button onclick="window.location.href='index.html'">Home</button></li>
+                <li class="dropdown-item"><button onclick="window.location.href='form.html'">Form</button></li>
+                <li class="dropdown-item"><button onclick="window.location.href='pizzaMaker.html'">Make your own</button></li>
+                <li class="dropdown-item"><button onclick="window.location.href='placeOrder.html'">Order</button></li>
+            </ul>
+        </div>
+        <div class="nav-item">
+            <button class="nav-btn">Settings</button>
+            <ul class="content">
+                <li class="dropdown-item">Adjust your settings here.</li>
+                <select class="theme-select" onchange="changeTheme()">
+                    <option value="default">Theme Select</option>
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="protanopia">Protanopia</option>
+                    <option value="deuteranopia">Deuteranopia</option>
+                    <option value="tritanopia">Tritanopia</option>
+                </select>
+                <!-- Add new settings options here -->
+            </ul>
+        </div>
+        <div class="nav-item">
+            <button class="nav-btn">Login</button>
+            <ul class="content">
+                <li class="dropdown-item">Login to access your account.</li>
+                <form>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                    <br>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                    <br>
+                    <input type="submit" value="Submit">
+                </form>
+                <!-- Additional login options can be added here -->
+            </ul>
+        </div>
+        <div class="nav-item">
+            <button class="nav-btn">Cart</button>
+            <ul class="content">
+                <li class="dropdown-item">View items in your cart.</li>
+                <div id="orderDetailsBox">
+                    <ul>
+                        <li>Order details will be displayed here.</li>
+                    </ul>
+                </div>
+                <!-- Additional cart actions can be added here -->
+            </ul>
+        </div>
+    </nav>
+    <table id="toppingList">
+        <tr>
+            <th>peperoni</th>
+            <th>leaf</th>
+            <th>peppers</th>
+            <th>mushrooms</th>
+            <th>pineapple</th>
+        </tr>
+        <tr>
+            <td><button class="add-topping-btn" id="peperoniButton">Add Topping</button></td>
+            <td><button class="add-topping-btn" id="leafButton">Add Topping</button></td>
+            <td><button class="add-topping-btn" id="peppersButton">Add Topping</button></td>
+            <td><button class="add-topping-btn" id="mushroomButton">Add Topping</button></td>
+            <td><button class="add-topping-btn" id="pineappleButton">Add Topping</button></td>
+        </tr>
+        <tr>
+            <td><img src="img/peperoni.png" alt="Image 1" class="topping"></td>
+            <td><img src="img/leafTopping.png" alt="Image 2" class="topping"></td>
+            <td><img src="img/pepperTopping.png" alt="Image 3" class="topping"></td>
+            <td><img src="img/mushroomTopping.png" alt="Image 4" class="topping"></td>
+            <td><img src="img/pineappleTopping.png" alt="Image 5" class="topping"></td>
+        </tr>
+        <tr>
+            <td id="peperoniHolder"></td>
+            <td id="leafHolder"></td>
+            <td id="peppersHolder"></td>
+            <td id="mushroomHolder"></td>
+            <td id="pineappleHolder"></td>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <button id="addSauce">Sauce only</button>
+    <button id="addCheese">Cheese and Sauce</button>
+</div>
+<div class="pizza-base">
+    <!-- Areas where toppings can be dropped -->
+    <!-- Top right position -->
+    <div class="topping-area" id="topping-area-1" style="top: 75px; left: 325px;"></div>
+    <!-- Bottom right position -->
+    <div class="topping-area" id="topping-area-2" style="top: 275px; left: 325px;"></div>
+    <!-- Top left position -->
+    <div class="topping-area" id="topping-area-3" style="top: 75px; left: 75px;"></div>
+    <!-- Bottom left position -->
+    <div class="topping-area" id="topping-area-4" style="top: 275px; left: 75px;"></div>
+    <!-- Top center position -->
+    <div class="topping-area" id="topping-area-5" style="top: 50px; left: 200px;"></div>
+    <!-- Bottom center position -->
+    <div class="topping-area" id="topping-area-6" style="top: 325px; left: 200px;"></div>
+    <!-- Center position -->
+    <div class="topping-area" id="topping-area-7" style="top: 200px; left: 200px;"></div>
+
+    <!-- Additional topping areas towards the center -->
+    <!-- Top right -->
+    <div class="topping-area" id="topping-area-8" style="top: 100px; left: 275px;"></div>
+    <!-- Middle right -->
+    <div class="topping-area" id="topping-area-9" style="top: 200px; left: 275px;"></div>
+    <!-- Bottom right -->
+    <div class="topping-area" id="topping-area-10" style="top: 300px; left: 275px;"></div>
+    <!-- Top left -->
+    <div class="topping-area" id="topping-area-11" style="top: 100px; left: 125px;"></div>
+    <!-- Middle left -->
+    <div class="topping-area" id="topping-area-12" style="top: 200px; left: 125px;"></div>
+    <!-- Bottom left -->
+    <div class="topping-area" id="topping-area-13" style="top: 300px; left: 125px;"></div>
+</div>
+
+
+<!-- Script tags for jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Make the toppings draggable
+        $(".topping").draggable({ revert: true });
+
+        // Make the topping areas and table cells droppable
+        $(".topping-area, td").droppable({
+            accept: ".topping",
+            drop: function(event, ui) {
+                $(this).append(ui.draggable);
+            }
+        });
+
+        // Function to handle click event on the "Add Topping" buttons
+        $(".add-topping-btn").click(function() {
+            // Get the image in the same table cell as the clicked button
+            var imageElement = $(this).siblings('img');
+
+            // Get the source of the image
+            var imageSrc = imageElement.attr('src');
+
+            // Clone and append the image
+            cloneAndAppendImage(imageSrc, imageElement);
+            
+            // Get the ID of the button clicked
+            var buttonId = $(this).attr('id');
+
+            // Clone the corresponding image based on the button ID
+            switch(buttonId) {
+                case "peperoniButton":
+                    cloneAndAppendImage("img/peperoni.png", imageElement);
+                    break;
+                case "leafButton":
+                    cloneAndAppendImage("img/leafTopping.png", imageElement);
+                    break;
+                case "peppersButton":
+                    cloneAndAppendImage("img/pepperTopping.png", imageElement);
+                    break;
+                case "mushroomButton":
+                    cloneAndAppendImage("img/mushroomTopping.png", imageElement);
+                    break;
+                case "pineappleButton":
+                    cloneAndAppendImage("img/pineappleTopping.png", imageElement);
+                    break;
+            }
+        });
+
+        // Function to clone and append image based on topping name
+        function cloneAndAppendImage(imageSrc, imageElement) {
+    // Create a new image element
+    var newImage = $("<img>");
+
+    // Set the source of the new image
+    newImage.attr("src", imageSrc);
+
+    // Add the "topping" class to the new image
+    newImage.addClass("topping");
+
+    // Make the new image draggable
+    newImage.draggable({ revert: true });
+
+    // Find the third row of the table
+    var thirdRow = $("table tr:eq(3)");
+
+    // Append the new image to the third row
+    thirdRow.append(newImage);
+}
+
+        // Changing background image for an element with class 'pizza-base' to 'img/pizzaSauce.png'
+        $("#addSauce").click(function() {
+            $(".pizza-base").css("background-image", "url('img/pizzaSauce.png')");
+        });
+
+        // Changing background image for an element with ID 'pizza-base' to 'img/pizzaCheese.png'
+        $("#addCheese").click(function() {
+            $(".pizza-base").css("background-image", "url('img/pizzaCheese.png')");
+        });
+
+        // Make the images droppable
+            // Make the extra-topping areas droppable
+        $(".extra-topping").droppable({
+            // When an image is dropped on a topping area
+            drop: function(event, ui) {
+                // Remove the dotted outline
+                $(this).css("outline", "none");
+            },
+            // When an image is moved away from a topping area
+            out: function(event, ui) {
+                // Reapply the dotted outline
+                $(this).css("outline", "1px dotted black");
+            }
+        });
+    });
+</script>
+
+
+</body>
+</html>
